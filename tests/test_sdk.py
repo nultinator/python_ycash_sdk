@@ -1,4 +1,4 @@
-from python_ycash_sdk.python_ycash_sdk import YcashBlockExplorerSDK
+from python_ycash_sdk.block_explorer_sdk import YcashBlockExplorerSDK
 import json
 
 sdk = YcashBlockExplorerSDK()
