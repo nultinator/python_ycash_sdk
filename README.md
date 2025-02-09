@@ -17,7 +17,7 @@ status = sdk.get_status()
 ### get_blockchain_info
 
 ```python
-from python_ycash_sdk.python_ycash_sdk import YcashBlockExplorerSDK
+from python_ycash_sdk.block_explorer_sdk import YcashBlockExplorerSDK
 
 sdk = YcashBlockExplorerSDK()
 
