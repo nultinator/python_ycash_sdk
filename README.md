@@ -4,6 +4,12 @@ A lightweight Python SDK for Ycash using the block explorer API at [https://expl
 
 ## Basic Usage
 
+### Installation
+
+```shell
+ pip install git+https://github.com/nultinator/python_ycash_sdk
+```
+
 ### get_status()
 
 ```python
