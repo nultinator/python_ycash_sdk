@@ -1,4 +1,6 @@
 from python_ycash_sdk.block_explorer_sdk import YcashBlockExplorerSDK
+from python_ycash_sdk.wallet_sdk import Wallet
+
 import json
 
 sdk = YcashBlockExplorerSDK()
@@ -115,3 +117,24 @@ def test_get_utxos():
     if utxos:
         for utxo in utxos:
             assert utxo.keys() == test_dict.keys()
+
+
+test_wallet = Wallet(wif="L5289LNGcpPri4AVp9xHCCnkJDwDmhWiE4kzqGGCHjWhnYZof5sn")
+
+def test_key_import():
+    assert test_wallet.get_address() == "s1MKwWQwBm6nzsirUVKUSDZaGE68a7FPzYP"
+    assert test_wallet.get_private_key() == "e8bd09ffee2f61c3c5a41a04b776299ad3c84de6969243d41478f7adecc6193d"
+    assert test_wallet.get_public_key() == "02228063a2edddb493654dea870c4b0bcda2f547dbf7954dd7116141a55650865e"
+    assert isinstance(test_wallet.get_utxos(), list)
+    assert test_wallet.get_wif() == "L5289LNGcpPri4AVp9xHCCnkJDwDmhWiE4kzqGGCHjWhnYZof5sn"
+
+random_wallet = Wallet()
+
+def test_random_wallet():
+    assert random_wallet.get_address()[:2] == "s1"
+    wif_first_char = random_wallet.get_wif()[0]
+    acceptable_chars = ["5", "L", "K"]
+    assert wif_first_char in acceptable_chars
+    assert isinstance(random_wallet.get_utxos(), list)
+    assert len(random_wallet.get_private_key()) == 64
+    assert len(random_wallet.get_public_key()) == 66
