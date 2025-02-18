@@ -29,12 +29,21 @@ class Wallet:
         self.wif = wif if wif else self._generate_wif()
 
     def _generate_public_key(self):
-        """Derive the public key from the private key."""
+        """Derive the compressed public key from the private key."""
         private_key_bytes = bytes.fromhex(self.private_key)
         sk = SigningKey.from_string(private_key_bytes, curve=SECP256k1)
         vk = sk.verifying_key
-        # Return compressed public key (33 bytes)
-        return b"\x02" + vk.to_string()[:32]
+
+        # Extract the full public key (X || Y)
+        public_key_full = vk.to_string()  # 64 bytes: 32 bytes X + 32 bytes Y
+        x_coord = public_key_full[:32]  # X coordinate (first 32 bytes)
+        y_coord = public_key_full[32:]  # Y coordinate (last 32 bytes)
+
+        # Correctly determine the prefix (0x02 if Y is even, 0x03 if Y is odd)
+        prefix = b"\x02" if y_coord[-1] % 2 == 0 else b"\x03"
+
+        # Return the compressed public key (33 bytes: 1-byte prefix + 32-byte X coordinate)
+        return prefix + x_coord
 
     def _generate_address(self):
         """Generate the Ycash transparent address (starts with 's1')."""
