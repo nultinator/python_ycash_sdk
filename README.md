@@ -2,7 +2,7 @@
 
 A lightweight Python SDK for Ycash using the block explorer API at [https://explorer.ycash.xyz/](https://explorer.ycash.xyz/).
 
-## Basic Usage
+## Block Explorer SDK
 
 ### get_status()
 
@@ -59,5 +59,29 @@ from python_ycash_sdk.block_explorer_sdk import YcashBlockExplorerSDK
 
 sdk = YcashBlockExplorerSDK()
 utxos = sdk.get_utxos("s1P6ZAeyvokGh3MSxN3bLRk9r5EWdSd34Az")
+
+## Wallet SDK
+
+### Import an Existing Wallet
+
+```python
+from python_ycash_sdk.wallet_sdk import Wallet
+
+test_wallet = Wallet(wif="L5289LNGcpPri4AVp9xHCCnkJDwDmhWiE4kzqGGCHjWhnYZof5sn")
+
+#get the ECDSA private key, THIS IS NOT YOUR WALLET IMPORT/EXPORT private key
+test_wallet.get_private_key()
+
+#get the ECDSA public key, THIS IS NOT YOUR YCASH ADDRESS
+test_wallet.get_public_key()
+
+#get the unspent outputs associated with this wallet
+test_wallet.get_utxos()
+
+#get the private key in WIF (wallet import format, THIS IS THE KEY YOU USE FOR BACKUPS
+test_wallet.get_wif()
+
+#create a random wallet from entropy
+random_wallet = Wallet()
 ```
 
