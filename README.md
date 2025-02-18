@@ -59,6 +59,7 @@ from python_ycash_sdk.block_explorer_sdk import YcashBlockExplorerSDK
 
 sdk = YcashBlockExplorerSDK()
 utxos = sdk.get_utxos("s1P6ZAeyvokGh3MSxN3bLRk9r5EWdSd34Az")
+```
 
 ## Wallet SDK
 
